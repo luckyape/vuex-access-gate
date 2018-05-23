@@ -1,53 +1,58 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
+// const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 var config = {
+  mode: 'development',
+  entry: './src/plugin.js',
   output: {
-    path: path.resolve(__dirname + '/dist/'),
+    filename: 'access-gate.js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        include: __dirname,
-        exclude: /node_modules/
-      },
-      {
+    rules: [    {
+      test: /\.js$/,
+      include: [path.resolve(__dirname, 'src')],
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    },{
         test: /\.vue$/,
-        loader: 'vue'
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
+        use: {
+          loader: 'vue-loader',
+        },
       },
       {
         test: /\.css$/,
-        loader: 'style!less!css'
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ]
       }
     ]
   },
-  externals: {
-
-  },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin( {
-      minimize : true,
-      sourceMap : false,
-      mangle: true,
-      compress: {
-        warnings: false
-      }
-    } )
+     new VueLoaderPlugin()
   ]
 };
 
+module.exports = config;
 
-module.exports = [
-  merge(config, {
-    entry: path.resolve(__dirname + '/src/AccessGate.vue'),
-    output: {
-      filename: 'access-gate.js',
-      libraryTarget: 'umd',
-      library: 'access-gate',
-      umdNamedDefine: true
-    }
-  })
-];

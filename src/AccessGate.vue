@@ -9,15 +9,13 @@
           <vue-form-generator class="cf" ref="form" :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
         </div>
       </div>
-
     </div>
 </template>
 
 <script>
 
-  import VueFormGenerator from "vue-form-generator";
+  import VueFormGenerator from 'vue-form-generator';
   import { mapGetters} from 'vuex';
-
 
     export default {
         data() {
