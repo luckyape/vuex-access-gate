@@ -1,0 +1,60 @@
+.access-gate-overlay {
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+  .access-gate-container {
+    text-align: center;
+    z-index: 10000;
+    max-height: 100vh;
+    width: 50vw;
+    position: fixed;
+    left: 25vw;
+    padding: 5vh 0;
+
+    @media screen and (max-width: 600px) {
+      left: calc(50% - 170px);
+      width: 340px;
+      margin: 0 auto;
+    }
+    .close {
+      width: 90vw;
+      max-width: 90vh;
+      cursor: pointer;
+      text-align: right;
+      color: #f87642
+    }
+    .access-gate {
+      text-align: center;
+      border-radius: 8px;
+      padding: 2%;
+      width: auto;
+      height: auto;
+      max-width: 90vw;
+      max-height: 90vh;
+      background-color: #fff;
+    }
+  }
+  .preloader-wrapper { 
+    margin: 33vh auto;
+    .spinner-layer {
+      border-color: #f87642
+    }
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: '';
+    background-color: black;
+    filter: alpha(opacity=80);
+    opacity: .8;
+  }
+} 
