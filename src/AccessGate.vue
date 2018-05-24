@@ -6,7 +6,9 @@
             :class=""
             v-cloak>
 
-            <h2 v-if="title && title !== ''">{{title}}</h2>
+            <h2 v-if="$slots['title']">
+                <slot name="title"></slot>
+            </h2>
             <vue-form-generator
                 class="cf"
                 ref="form"
@@ -24,9 +26,6 @@
   import { mapGetters} from 'vuex';
 
     export default {
-        props: {
-            title: '',
-        },
         data() {
             return {
               model: {
