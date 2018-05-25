@@ -59,11 +59,12 @@
                 const submitGroup = {
                     group: 'submit',
                     fields: [{
-                        type: 'submit',
+                        type: 'ElButton',
                         label: '',
                         validateBeforeSubmit: true,
                         buttonText: this.$t('Continue to Site'),
-                        styleClasses: 'dt-btn active dt-btn-hollow cf twelve col',
+                        styleClasses: 'cf twelve col no-margin',
+                        buttonClasses: 'dt-btn active dt-btn-hollow cf twelve col no-margin button-submit',
                         onSubmit: this.save,
                         disabled() {
                             return this.errors.length != 0;
