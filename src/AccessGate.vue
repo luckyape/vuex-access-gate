@@ -63,7 +63,7 @@
                         validateBeforeSubmit: true,
                         buttonText: this.$t('Continue to Site'),
                         styleClasses: 'cf twelve col no-margin',
-                        buttonClasses: 'dt-btn active dt-btn-hollow cf twelve col no-margin',
+                        buttonClasses: 'dt-btn active dt-btn-hollow cf twelve col no-margin button-submit',
                         onSubmit: this.save,
                         disabled() {
                             return this.errors.length != 0;
