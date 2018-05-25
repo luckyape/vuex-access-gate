@@ -1,5 +1,7 @@
 export default {
     schemaGroups(state) {
-      return state.gates.filter(group => group.locked);
+      var lockedGates = state.gates.filter(group => group.locked);
+      return lockedGates //lockedGates.concat(state.submit);
+
     }
 }

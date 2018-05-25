@@ -55,7 +55,22 @@
                 this.$emit('save', form);
             },
             createFormGroups(){
-              this.$data.schema.groups = this.schemaGroups;
+                const submitGroup = {
+                    group: 'submit',
+                    fields: [{
+                        type: 'submit',
+                        label: '',
+                        validateBeforeSubmit: true,
+                        buttonText: this.$t('Continue to Site'),
+                        styleClasses: 'dt-btn active dt-btn-hollow cf twelve col',
+                        onSubmit: this.save,
+                        disabled() {
+                            return this.errors.length != 0;
+                        }
+                    }]
+                }
+
+              this.$data.schema.groups = this.schemaGroups.concat(submitGroup);
             }
         },
     }
