@@ -29,8 +29,6 @@
         data() {
             return {
               model: {
-                email_opt_in: null,
-                accepted_terms_and_conditions: false
               },
               params: {
               },
@@ -54,6 +52,9 @@
             save(form, schema){
                 this.$emit('save', form);
             },
+            setModel(field) {
+                this.$data.model[field.group] = null;
+            },
             createFormGroups(){
                 const submitGroup = {
                     group: 'submit',
@@ -69,8 +70,8 @@
                         }
                     }]
                 }
-
-              this.$data.schema.groups = this.schemaGroups.concat(submitGroup);
+                this.schemaGroups.forEach(this.setModel);
+                this.$data.schema.groups = this.schemaGroups.concat(submitGroup);
             }
         },
     }
