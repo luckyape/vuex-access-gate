@@ -1,9 +1,9 @@
 import AccessGateComponent from './AccessGate.vue';
 import AccessGateModule from './index';
 
-function install (Vue, options) {
-  options.Store.registerModule('accessGate', AccessGateModule);
-  options.Store.commit('accessGate/setGates',  options.gateConfig);
+function install (Vue, args) {
+  args.Store.registerModule('accessGate', AccessGateModule);
+  args.Store.commit('accessGate/setOptions', args.options);
   Vue.component('access-gate', AccessGateComponent);
 }
 export default {

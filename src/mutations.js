@@ -1,9 +1,15 @@
+
+
 export default {
     setLock(state, args) {
         state.gates[args.index].locked = args.locked;
     },
-    setGates(state, config) {
-        state.gates = config.gates
-        state.submit = config.submit
-    }
+    setOptions(state, config) {
+        Object.assign(state.submitOptions, config.submitOptions);
+        delete config.submitOptions;
+        Object.assign(state, config);
+    },
+    openGate(state) {
+        state.accessGate.locked = false;
+    },
 }

@@ -5,10 +5,7 @@
             class="access-gate"
             :class=""
             v-cloak>
-
-            <h2 v-if="$slots['title']">
-                <slot name="title"></slot>
-            </h2>
+            <h2 > {{title}}</h2>
             <vue-form-generator
                 class="cf"
                 ref="form"
@@ -23,7 +20,7 @@
 <script>
 
   import VueFormGenerator from 'vue-form-generator';
-  import { mapGetters} from 'vuex';
+  import { mapGetters, mapState} from 'vuex';
 
     export default {
         data() {
@@ -47,31 +44,26 @@
         },
         computed: {
             ...mapGetters('accessGate', ['schemaGroups']),
+            ...mapState('accessGate', ['submitOptions', 'title'])
         },
         methods: {
-            save(form, schema){
-                this.$emit('save', form);
+            saveForm(form, schema){
+              if(!this.errors || this.errors.length === 0)
+                  this.$emit('save', form);
+              else return false;
             },
-            setModel(field) {
-                this.$data.model[field.group] = null;
-            },
-            createFormGroups(){
+             createFormGroups(){
+                const options = {
+                  onSubmit: this.saveForm,
+                    disabled() {
+                      return this.errors.length != 0;
+                  }
+                };
+                Object.assign(options, this.submitOptions);
                 const submitGroup = {
                     group: 'submit',
-                    fields: [{
-                        type: 'ElButton',
-                        label: '',
-                        validateBeforeSubmit: true,
-                        buttonText: this.$t('Continue to Site'),
-                        styleClasses: 'cf twelve col no-margin',
-                        buttonClasses: 'dt-btn active dt-btn-hollow cf twelve col no-margin button-submit',
-                        onSubmit: this.save,
-                        disabled() {
-                            return this.errors.length != 0;
-                        }
-                    }]
+                    fields: [options]
                 }
-                this.schemaGroups.forEach(this.setModel);
                 this.$data.schema.groups = this.schemaGroups.concat(submitGroup);
             }
         },
